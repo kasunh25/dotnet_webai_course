@@ -1,8 +1,8 @@
-﻿namespace NET8API.Models.Domain
+﻿namespace NET8API.Models.DTO
 {
-    public class Task
+    public class TaskDto
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         public required string TaskName { get; set; }
 
         public double EstimatedHours { get; set; } = 0;

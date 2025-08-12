@@ -11,6 +11,22 @@
   },
   {
     "ContainingType": "NET8API.Controllers.TasksController",
+    "Method": "CreateATask",
+    "RelativePath": "api/Tasks",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addTaskDto",
+        "Type": "NET8API.Models.DTO.AddTaskDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NET8API.Controllers.TasksController",
     "Method": "GetTaskById",
     "RelativePath": "api/Tasks/{id}",
     "HttpMethod": "GET",
