@@ -57,6 +57,22 @@ namespace NET8API.Controllers
 
         }
 
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public IActionResult GetTaskById([FromRoute] Guid id)
+        {
+            //var task = dbContext.Tasks.Find(id); // Only filter by Primary Key
+
+            var task = dbContext.Tasks.FirstOrDefault(x => x.Id == id);
+
+            if(task == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(task);
+        }
+
 
 
 
