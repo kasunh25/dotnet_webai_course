@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NET8API.Models.Domain;
 
 namespace NET8API.Controllers
 {
-    //http://localhost:portnumber/api/tasks
+    //http://localhost:portnumber/api/Tasks
     [Route("api/[controller]")]
     [ApiController]
     public class TasksController : ControllerBase
@@ -12,14 +13,42 @@ namespace NET8API.Controllers
         [HttpGet]
         public IActionResult GetAllTasks()
         {
-            string[] tasks = new string[]
+            var tasks = new List<NET8API.Models.Domain.Task>
             {
-                "Task 1",
-                "Task 2",
-                "Task 3"
+                new Models.Domain.Task
+                {
+                    Id = Guid.NewGuid(),
+                    TaskName = "Task 1",
+                    EstimatedHours = 2.5,
+                    ActualHours = 1.5,
+                    Status = "In Progress"
+                },
+
+                new Models.Domain.Task
+                {
+                    Id = Guid.NewGuid(),
+                    TaskName = "Task 2",
+                    EstimatedHours = 3.0,
+                    ActualHours = 2.0,
+                    Status = "Completed"
+                },
+
+                new Models.Domain.Task
+                {
+                    Id = Guid.NewGuid(),
+                    TaskName = "Task 3",
+                    EstimatedHours = 1.0,
+                    ActualHours = 0.5,
+                    Status = "Not Started"
+                }
             };
 
             return Ok(tasks);
         }
+
+
+
+
+     
     }
 }
