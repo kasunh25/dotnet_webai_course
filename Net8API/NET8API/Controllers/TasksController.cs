@@ -135,6 +135,24 @@ namespace NET8API.Controllers
             return Ok(tasksDto);
         }
 
+        //Delete a task
+        //DELETE: 
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public IActionResult DeleteATask([FromRoute] Guid id)
+        {
+            var taskDomainModel = dbContext.Tasks.FirstOrDefault(t => t.Id == id);
+
+             if(taskDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            dbContext.Tasks.Remove(taskDomainModel);
+            dbContext.SaveChanges();
+
+            return Ok();
+        } 
 
     }
 }
