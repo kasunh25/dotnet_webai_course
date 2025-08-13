@@ -85,7 +85,7 @@ namespace NET8API.Controllers
                 Status = addTaskDto.Status
             };
 
-            //Use domain model to create a region
+            //Use domain model to create a task
             dbContext.Tasks.Add(taskDomainModel);
             //Save changes to the database
             dbContext.SaveChanges();
@@ -104,7 +104,36 @@ namespace NET8API.Controllers
 
         }
 
+        //Update Task
 
+        //PUT: 
+        [HttpPut]
+        [Route("{id:Guid}")]
+        public IActionResult UpdateATask([FromRoute] Guid id, [FromBody] UpdateTaskDto updateTaskDto )
+        {
+            var taskDomainModel = dbContext.Tasks.FirstOrDefault(t => t.Id == id);
+
+            if (taskDomainModel ==  null)
+            {
+                return NotFound();
+            }
+
+            taskDomainModel.ActualHours = (double)updateTaskDto.ActualHours;
+            taskDomainModel.Status = updateTaskDto.Status;
+
+            dbContext.SaveChanges();
+
+            var tasksDto = new TaskDto
+            {
+                Id = taskDomainModel.Id,
+                TaskName = taskDomainModel.TaskName,
+                EstimatedHours = taskDomainModel.EstimatedHours,
+                ActualHours = taskDomainModel.ActualHours,
+                Status = taskDomainModel.Status
+            };
+
+            return Ok(tasksDto);
+        }
 
 
     }

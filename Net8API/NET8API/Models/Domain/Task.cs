@@ -9,6 +9,6 @@
 
         public double ActualHours { get; set; } = 0;
 
-        public required string Status { get; set; } // e.g., "Not Started", "In Progress", "Completed"
+        public required string Status { get; set; } 
     }
 }
