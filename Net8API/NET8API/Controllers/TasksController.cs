@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NET8API.Data;
 using NET8API.Models.Domain;
 using NET8API.Models.DTO;
@@ -16,12 +17,14 @@ namespace NET8API.Controllers
         {
                 this.dbContext = dbContext;
         }
-        // GET: api/tasks
+        
+        //Get all tasks
+        // GET: http://localhost:portnumber/api/Tasks
         [HttpGet]
-        public IActionResult GetAllTasks()
+        public async Task<IActionResult> GetAllTasks()
         {
             //Get data fron Database - Domain models
-            var tasks = dbContext.Tasks.ToList();
+            var tasks = await dbContext.Tasks.ToListAsync();
 
             //Map domain models to DTOs
             var tasksDto = new List<TaskDto>();
@@ -39,19 +42,19 @@ namespace NET8API.Controllers
             }
 
             //Return DTOs
-
-
             return Ok(tasks);
-
         }
 
+
+        //Get a task by id
+        //GET: http://localhost:portnumber/api/Tasks/:id
         [HttpGet]
         [Route("{id:Guid}")]
-        public IActionResult GetTaskById([FromRoute] Guid id)
+        public async  Task<IActionResult> GetTaskById([FromRoute] Guid id)
         {
             //var task = dbContext.Tasks.Find(id); // Only filter by Primary Key
             // Fetching model data from the database
-            var taskDomain = dbContext.Tasks.FirstOrDefault(x => x.Id == id); // For any field
+            var taskDomain = await dbContext.Tasks.FirstOrDefaultAsync(x => x.Id == id); // For any field
 
             if(taskDomain == null)
             {
@@ -72,9 +75,10 @@ namespace NET8API.Controllers
             return Ok(task);
         }
 
-        //POST to create a new task
+        //Create a new task
+        //POST: http://localhost:portnumber/api/Tasks
         [HttpPost]
-        public IActionResult CreateATask([FromBody] AddTaskDto addTaskDto)
+        public async Task<IActionResult> CreateATask([FromBody] AddTaskDto addTaskDto)
         {
             //Map or convert DTO to Domain model
             var taskDomainModel = new NET8API.Models.Domain.Task
@@ -86,9 +90,9 @@ namespace NET8API.Controllers
             };
 
             //Use domain model to create a task
-            dbContext.Tasks.Add(taskDomainModel);
+            await dbContext.Tasks.AddAsync(taskDomainModel);
             //Save changes to the database
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
 
             //Map domain model to DTO
             var taskDto = new TaskDto
@@ -101,17 +105,15 @@ namespace NET8API.Controllers
             };
 
             return CreatedAtAction(nameof(GetTaskById), new { id = taskDto.Id }, taskDto);
-
         }
 
-        //Update Task
-
-        //PUT: 
+        //Update a task by id
+        //PUT: http://localhost:portnumber/api/Tasks/:id
         [HttpPut]
         [Route("{id:Guid}")]
-        public IActionResult UpdateATask([FromRoute] Guid id, [FromBody] UpdateTaskDto updateTaskDto )
+        public async Task<IActionResult> UpdateATask([FromRoute] Guid id, [FromBody] UpdateTaskDto updateTaskDto )
         {
-            var taskDomainModel = dbContext.Tasks.FirstOrDefault(t => t.Id == id);
+            var taskDomainModel = await dbContext.Tasks.FirstOrDefaultAsync(t => t.Id == id);
 
             if (taskDomainModel ==  null)
             {
@@ -121,7 +123,7 @@ namespace NET8API.Controllers
             taskDomainModel.ActualHours = (double)updateTaskDto.ActualHours;
             taskDomainModel.Status = updateTaskDto.Status;
 
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
 
             var tasksDto = new TaskDto
             {
@@ -135,13 +137,13 @@ namespace NET8API.Controllers
             return Ok(tasksDto);
         }
 
-        //Delete a task
-        //DELETE: 
+        //Delete a task by id
+        //DELETE: http://localhost:portnumber/api/Tasks
         [HttpDelete]
         [Route("{id:Guid}")]
-        public IActionResult DeleteATask([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteATask([FromRoute] Guid id)
         {
-            var taskDomainModel = dbContext.Tasks.FirstOrDefault(t => t.Id == id);
+            var taskDomainModel = await dbContext.Tasks.FirstOrDefaultAsync(t => t.Id == id);
 
              if(taskDomainModel == null)
             {
@@ -149,7 +151,7 @@ namespace NET8API.Controllers
             }
 
             dbContext.Tasks.Remove(taskDomainModel);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
 
             return Ok();
         } 
