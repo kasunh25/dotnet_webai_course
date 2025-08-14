@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Dev\\dotnet-api-v2\\Net8API\\NET8API\\NET8API.csproj": {}
+    "C:\\dotnet-api-v2\\Net8API\\NET8API\\NET8API.csproj": {}
   },
   "projects": {
-    "C:\\Dev\\dotnet-api-v2\\Net8API\\NET8API\\NET8API.csproj": {
+    "C:\\dotnet-api-v2\\Net8API\\NET8API\\NET8API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Dev\\dotnet-api-v2\\Net8API\\NET8API\\NET8API.csproj",
+        "projectUniqueName": "C:\\dotnet-api-v2\\Net8API\\NET8API\\NET8API.csproj",
         "projectName": "NET8API",
-        "projectPath": "C:\\Dev\\dotnet-api-v2\\Net8API\\NET8API\\NET8API.csproj",
+        "projectPath": "C:\\dotnet-api-v2\\Net8API\\NET8API\\NET8API.csproj",
         "packagesPath": "C:\\Users\\KasunHettiarachchi\\.nuget\\packages\\",
-        "outputPath": "C:\\Dev\\dotnet-api-v2\\Net8API\\NET8API\\obj\\",
+        "outputPath": "C:\\dotnet-api-v2\\Net8API\\NET8API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -17,6 +17,8 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 builder.Services.AddScoped<ITaskRepository, SQLTaskRepository>();
 //builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+
+//Automapper injection
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<AutoMapperProfiles>();
