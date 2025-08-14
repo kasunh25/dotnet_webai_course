@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NET8API.Data;
 using NET8API.Models.Domain;
 using NET8API.Models.DTO;
+using NET8API.Repositories;
 
 namespace NET8API.Controllers
 {
@@ -13,9 +15,14 @@ namespace NET8API.Controllers
     public class TasksController : ControllerBase
     {
         private readonly Net8ApiDbContext dbContext;
-        public TasksController(Net8ApiDbContext dbContext)
+        private readonly ITaskRepository taskRepository;
+        private readonly IMapper mapper;
+
+        public TasksController(Net8ApiDbContext dbContext, ITaskRepository taskRepository, IMapper mapper)
         {
                 this.dbContext = dbContext;
+                this.taskRepository = taskRepository;
+                this.mapper = mapper;
         }
         
         //Get all tasks
@@ -24,22 +31,27 @@ namespace NET8API.Controllers
         public async Task<IActionResult> GetAllTasks()
         {
             //Get data fron Database - Domain models
-            var tasks = await dbContext.Tasks.ToListAsync();
+            //var tasks = await dbContext.Tasks.ToListAsync();
+            var tasksDomain = await taskRepository.GetAllTasksAsync();
 
             //Map domain models to DTOs
             var tasksDto = new List<TaskDto>();
 
-            foreach (var task in tasks)
-            {
-                tasksDto.Add(new TaskDto
-                {
-                    Id = task.Id,
-                    TaskName = task.TaskName,
-                    EstimatedHours = task.EstimatedHours,
-                    ActualHours = task.ActualHours,
-                    Status = task.Status
-                });
-            }
+            //foreach (var task in tasks)
+            //{
+            //    tasksDto.Add(new TaskDto
+            //    {
+            //        Id = task.Id,
+            //        TaskName = task.TaskName,
+            //        EstimatedHours = task.EstimatedHours,
+            //        ActualHours = task.ActualHours,
+            //        Status = task.Status
+            //    });
+            //}
+
+            //using automapper 
+            //mapper.Map<Destination Type>(Source type)
+            var tasks = mapper.Map<List<TaskDto>>(tasksDomain);
 
             //Return DTOs
             return Ok(tasks);

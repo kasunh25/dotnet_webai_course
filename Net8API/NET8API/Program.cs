@@ -1,5 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NET8API.Data;
+using NET8API.Mappings;
+using NET8API.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +14,14 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<Net8ApiDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<ITaskRepository, SQLTaskRepository>();
+//builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<AutoMapperProfiles>();
+});
+
 
 var app = builder.Build();
 
