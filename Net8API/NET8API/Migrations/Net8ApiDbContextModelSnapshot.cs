@@ -66,7 +66,8 @@ namespace NET8API.Migrations
                             ActualHours = 0.75,
                             EstimatedHours = 1.0,
                             Status = "Done",
-                            TaskName = "wash Dishes"
+                            TaskName = "wash Dishes",
+                            ToDoListId = new Guid("c6b71925-8970-40b6-a752-87953538ab55")
                         },
                         new
                         {
@@ -103,9 +104,11 @@ namespace NET8API.Migrations
 
             modelBuilder.Entity("NET8API.Models.Domain.Task", b =>
                 {
-                    b.HasOne("NET8API.Models.Domain.ToDoList", null)
+                    b.HasOne("NET8API.Models.Domain.ToDoList", "ToDoList")
                         .WithMany("Tasks")
                         .HasForeignKey("ToDoListId");
+
+                    b.Navigation("ToDoList");
                 });
 
             modelBuilder.Entity("NET8API.Models.Domain.ToDoList", b =>

@@ -1,0 +1,17 @@
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace NET8API.Data
+{
+    public class AuthDbContext : IdentityDbContext
+
+    {
+        public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
+        {
+        }
+
+        protected AuthDbContext()
+        {
+        }
+    }
+}

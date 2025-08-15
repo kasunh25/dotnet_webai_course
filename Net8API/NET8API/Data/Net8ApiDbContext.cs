@@ -5,7 +5,7 @@ namespace NET8API.Data
 {
     public class Net8ApiDbContext : DbContext
     {
-        public Net8ApiDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
+        public Net8ApiDbContext(DbContextOptions<Net8ApiDbContext> dbContextOptions) : base(dbContextOptions)
         {
         }
 
@@ -37,7 +37,10 @@ namespace NET8API.Data
                     TaskName = "wash Dishes",
                     EstimatedHours = 1,
                     ActualHours = 0.75,
-                    Status ="Done"
+                    Status ="Done",
+                    ToDoListId = Guid.Parse("c6b71925-8970-40b6-a752-87953538ab55")
+
+
 
                 },
 
@@ -56,6 +59,18 @@ namespace NET8API.Data
             //Seed tasks to the database
             modelBuilder.Entity<Models.Domain.Task>().HasData(tasks);
 
+            var toDoLists = new List<ToDoList>()
+            {
+                new ToDoList
+                {
+                    Id = Guid.Parse("c6b71925-8970-40b6-a752-87953538ab55"),
+                    Name = "Monday's tasks",
+                    Description = "Do them on Monday",
+                    CreatedDate = DateTime.Now,
+                    DueDate = DateTime.Now
+
+                }
+            };
         }
     }
 }

@@ -12,8 +12,8 @@ using NET8API.Data;
 namespace NET8API.Migrations
 {
     [DbContext(typeof(Net8ApiDbContext))]
-    [Migration("20250813035640_Migration 03")]
-    partial class Migration03
+    [Migration("20250814114032_Removed relationships")]
+    partial class Removedrelationships
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,14 +45,35 @@ namespace NET8API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ToDoListId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ToDoListId");
-
                     b.ToTable("Tasks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("65472640-b37b-45c1-8f0b-7bbbb9ece3f3"),
+                            ActualHours = 0.75,
+                            EstimatedHours = 0.5,
+                            Status = "In Progress",
+                            TaskName = "Water the plants"
+                        },
+                        new
+                        {
+                            Id = new Guid("de47cc9d-e09e-425a-98b9-8a44698b399b"),
+                            ActualHours = 0.75,
+                            EstimatedHours = 1.0,
+                            Status = "Done",
+                            TaskName = "wash Dishes"
+                        },
+                        new
+                        {
+                            Id = new Guid("d822a934-263b-41b6-815a-adaedc5ee91e"),
+                            ActualHours = 1.5,
+                            EstimatedHours = 1.5,
+                            Status = "Paused",
+                            TaskName = "Do laundry"
+                        });
                 });
 
             modelBuilder.Entity("NET8API.Models.Domain.ToDoList", b =>
@@ -76,18 +97,6 @@ namespace NET8API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ToDoLists");
-                });
-
-            modelBuilder.Entity("NET8API.Models.Domain.Task", b =>
-                {
-                    b.HasOne("NET8API.Models.Domain.ToDoList", null)
-                        .WithMany("Tasks")
-                        .HasForeignKey("ToDoListId");
-                });
-
-            modelBuilder.Entity("NET8API.Models.Domain.ToDoList", b =>
-                {
-                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

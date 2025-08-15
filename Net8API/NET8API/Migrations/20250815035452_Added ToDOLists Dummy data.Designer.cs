@@ -12,8 +12,8 @@ using NET8API.Data;
 namespace NET8API.Migrations
 {
     [DbContext(typeof(Net8ApiDbContext))]
-    [Migration("20250813045727_Migration 04")]
-    partial class Migration04
+    [Migration("20250815035452_Added ToDOLists Dummy data")]
+    partial class AddedToDOListsDummydata
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,33 @@ namespace NET8API.Migrations
                     b.HasIndex("ToDoListId");
 
                     b.ToTable("Tasks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("65472640-b37b-45c1-8f0b-7bbbb9ece3f3"),
+                            ActualHours = 0.75,
+                            EstimatedHours = 0.5,
+                            Status = "In Progress",
+                            TaskName = "Water the plants"
+                        },
+                        new
+                        {
+                            Id = new Guid("de47cc9d-e09e-425a-98b9-8a44698b399b"),
+                            ActualHours = 0.75,
+                            EstimatedHours = 1.0,
+                            Status = "Done",
+                            TaskName = "wash Dishes",
+                            ToDoListId = new Guid("c6b71925-8970-40b6-a752-87953538ab55")
+                        },
+                        new
+                        {
+                            Id = new Guid("d822a934-263b-41b6-815a-adaedc5ee91e"),
+                            ActualHours = 1.5,
+                            EstimatedHours = 1.5,
+                            Status = "Paused",
+                            TaskName = "Do laundry"
+                        });
                 });
 
             modelBuilder.Entity("NET8API.Models.Domain.ToDoList", b =>
@@ -80,9 +107,11 @@ namespace NET8API.Migrations
 
             modelBuilder.Entity("NET8API.Models.Domain.Task", b =>
                 {
-                    b.HasOne("NET8API.Models.Domain.ToDoList", null)
+                    b.HasOne("NET8API.Models.Domain.ToDoList", "ToDoList")
                         .WithMany("Tasks")
                         .HasForeignKey("ToDoListId");
+
+                    b.Navigation("ToDoList");
                 });
 
             modelBuilder.Entity("NET8API.Models.Domain.ToDoList", b =>
