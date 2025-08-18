@@ -14,6 +14,6 @@
         public Guid? ToDoListId { get; set; }
 
         //Navigation Properties
-        public ToDoList ToDoList { get; set; }
+        //public ToDoList ToDoList { get; set; }
     }
 }
