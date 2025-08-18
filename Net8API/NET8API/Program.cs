@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using NET8API.Data;
 using NET8API.Mappings;
 using NET8API.Repositories;
+using NZWalks.API.Repositories;
 using System.Text;
 
 
@@ -23,6 +24,8 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("AuthConnectionString")));
 
 builder.Services.AddScoped<ITaskRepository, SQLTaskRepository>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+
 
 //builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 

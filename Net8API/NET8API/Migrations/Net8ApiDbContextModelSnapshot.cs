@@ -42,12 +42,7 @@ namespace NET8API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ToDoListId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ToDoListId");
 
                     b.ToTable("Tasks");
 
@@ -66,8 +61,7 @@ namespace NET8API.Migrations
                             ActualHours = 0.75,
                             EstimatedHours = 1.0,
                             Status = "Done",
-                            TaskName = "wash Dishes",
-                            ToDoListId = new Guid("c6b71925-8970-40b6-a752-87953538ab55")
+                            TaskName = "wash Dishes"
                         },
                         new
                         {
@@ -100,20 +94,6 @@ namespace NET8API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ToDoLists");
-                });
-
-            modelBuilder.Entity("NET8API.Models.Domain.Task", b =>
-                {
-                    b.HasOne("NET8API.Models.Domain.ToDoList", "ToDoList")
-                        .WithMany("Tasks")
-                        .HasForeignKey("ToDoListId");
-
-                    b.Navigation("ToDoList");
-                });
-
-            modelBuilder.Entity("NET8API.Models.Domain.ToDoList", b =>
-                {
-                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

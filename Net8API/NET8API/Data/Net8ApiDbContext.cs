@@ -37,8 +37,7 @@ namespace NET8API.Data
                     TaskName = "wash Dishes",
                     EstimatedHours = 1,
                     ActualHours = 0.75,
-                    Status ="Done",
-                    ToDoListId = Guid.Parse("c6b71925-8970-40b6-a752-87953538ab55")
+                    Status ="Done"
 
 
 

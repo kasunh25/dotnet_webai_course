@@ -11,9 +11,5 @@
 
         public required string Status { get; set; }
 
-        public Guid? ToDoListId { get; set; }
-
-        //Navigation Properties
-        //public ToDoList ToDoList { get; set; }
     }
 }

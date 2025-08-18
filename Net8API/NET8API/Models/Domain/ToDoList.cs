@@ -16,7 +16,6 @@ namespace NET8API.Models.Domain
         [DataType(DataType.Date)]
         public DateTime? DueDate { get; set; }
 
-        public List<Task>? Tasks { get; set; }
 
     }
 }

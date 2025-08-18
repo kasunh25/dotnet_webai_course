@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NET8API.Migrations
 {
     /// <inheritdoc />
-    public partial class Removedrelationships : Migration
+    public partial class UncommentedToDoListIdzz : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
