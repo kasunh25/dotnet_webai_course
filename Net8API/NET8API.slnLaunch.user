@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "NET8API\\NET8API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "NET8WEBAPP\\NET8WEBAPP.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
